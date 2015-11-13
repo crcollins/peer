@@ -1,0 +1,20 @@
+{% extends "peer/base.html" %}
+
+{% load url from future %}
+{% block title %}Peer{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for paper in papers %}
+    <div class="row">
+        <div class="title">{{ paper.title }}</div>
+        <div class="author">{{ paper.author }}</div>
+        <div class="abstract">{{ paper.abstract }}</div>
+        {% if request.user == paper.author %}
+        <div class="status">paper.status</div>
+        {% endif %}
+        <div class="detail">{{ paper.url }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

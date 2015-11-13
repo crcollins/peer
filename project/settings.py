@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
+    'peer',
     'crispy_forms',
 )
 
@@ -117,3 +118,4 @@ STATICFILES_DIRS = (
 
 HOME_URL = '/'
 LOGIN_URL = '/login/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "project/media")

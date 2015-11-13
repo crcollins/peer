@@ -16,11 +16,13 @@ Including another URLconf
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
+import peer
 import account
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^u/', include("account.urls")),
+    url(r'', include("peer.urls")),
 ]
 
 urlpatterns += patterns('django.contrib.auth.views',
