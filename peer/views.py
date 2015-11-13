@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 from models import Paper
 from forms import PaperForm
@@ -21,12 +22,15 @@ def paper_index(request):
 
 
 def paper_detail(request, paper_id):
-    paper = Paper.objects.get(id=paper_id)
-    if paper and paper.is_public:
-        return render(request, paper)
+    paper = get_object_or_404(Paper, pk=paper_id)
+    if paper and paper.is_public():
+        c = {"paper": paper}
+        return render(request, "peer/paper_detail.html", c)
     else:
-        return render(request, 404)
+        raise Http404("Paper does not exist.")
+
     
+
 @login_required
 def paper_submit(request):
     if request.method == "POST":
