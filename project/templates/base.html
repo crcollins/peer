@@ -1,0 +1,82 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" type="image/x-icon" />
+
+    <title>{% block title %}Peer{% endblock %}</title>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'bootstrap/css/sticky-footer-navbar.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'style.css?v=1' %}" rel="stylesheet">
+</head>
+<body>
+<div id="wrap">
+    <nav class="navbar navbar-inverse navbar-default" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">PeerRev</a>
+        </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'paper_index' %}">Browse</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'paper_submit' %}">Submit</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+                <li><a href="{% url "user_settings" request.user %}">Welcome, {{ user }}</a></li>
+                {% if user.is_staff %}
+                    <li><a href="/admin/">Admin Page</a></li>
+                {% endif %}
+                <li><a href="{% url 'logout' %}?next={{ request.path }}">Log Out</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}?next={{request.path}}">Log In</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        {% block header %}
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div class="ajax-modal"></div>
+</div>
+
+<div id="footer">
+    <div class="container">
+    {% block footer %}
+    <p class="text-muted credit">
+    Note that all of the information here is very alpha. Use at your own risk.
+    </p>
+    <p class="text-muted credit">
+    The source code can be found <a href="https://github.com/crcollins/chemtools-webapp">here</a>.
+    </p>
+    {% endblock %}
+    </div>
+</div>
+
+<script src="{% static 'jquery-1.7.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'scripts.js?v=1' %}"></script>
+{% block script %}{% endblock %}
+</body>
+</html>
