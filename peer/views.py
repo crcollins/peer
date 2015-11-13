@@ -11,7 +11,9 @@ def index(request):
 
 def paper_index(request):
     # public papers only
-    new_papers = Paper.objects.get_recent(10)
+
+    new_papers = Paper.objects.filter(published__isnull=False).order_by('-pk')[:10]
+
     c = {
         "papers": new_papers,
     }
