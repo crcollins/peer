@@ -1,0 +1,21 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<h3>{{ state }}</h3>
+<form action='' method="post">
+    {% csrf_token %}
+    {{ reg_form | crispy }}
+    {{ pass_form | crispy }}
+    <div class="row">
+        <div class="col-xs-6">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-lg btn-block" type="reset">Reset</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

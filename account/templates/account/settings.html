@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+{% load url from future %}
+
+{% block title %}Settings{% endblock %}
+
+{% block header %}
+    <h1>Settings</h1>
+{% endblock %}
+
+
+{% block content %}
+<h3>{{ state }}</h3>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-group" id="sidebar">
+        {% for p in pages %}
+            <a href="{% url 'account_page' request.user p %}" class="list-group-item {% if page == p %}active{% endif %}">{{ p|title }}</a>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-6">
+    {% block settingsbody %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

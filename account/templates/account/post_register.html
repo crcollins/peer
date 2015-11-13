@@ -1,0 +1,12 @@
+{% extends "account/base.html" %}
+{% load url from future %}
+
+{% block title %}Registration Complete{% endblock %}
+
+{% block header %}
+    <h1>Registration Complete</h1>
+{% endblock %}
+
+{% block content %}
+Please click <a href="{% url 'activate' key %}">this</a> link to activate your account.
+{% endblock %}
