@@ -3,3 +3,4 @@ env/
 project/secret_key.py
 scratch
 db.sqlite3
+project/media/
