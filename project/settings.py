@@ -116,3 +116,4 @@ STATICFILES_DIRS = (
 )
 
 HOME_URL = '/'
+LOGIN_URL = '/login/'
