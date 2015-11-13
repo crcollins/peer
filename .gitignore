@@ -1,3 +1,5 @@
 env/
 *.pyc
 project/secret_key.py
+scratch
+db.sqlite3
