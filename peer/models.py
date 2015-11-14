@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.conf import settings
 
@@ -30,6 +32,11 @@ class Paper(models.Model):
     def is_reviewed(self):
         return self.status != PENDING
 
+    def update_status(self, status):
+        self.status = status
+        if self.status == ACCEPTED:
+            self.published = datetime.datetime.now()
+        self.save()
 
 
 class Review(models.Model):
