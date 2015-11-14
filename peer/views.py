@@ -37,7 +37,7 @@ def paper_submit(request):
         if form.is_valid():
             form.save()
             # log
-            return redirect(index)
+            return redirect(submission_index)
     else:
         form = PaperForm()
 
