@@ -27,6 +27,9 @@ class Paper(models.Model):
     def is_public(self):
         return self.status == ACCEPTED
 
+    def is_reviewed(self):
+        return self.status != PENDING
+
 
 
 class Review(models.Model):
