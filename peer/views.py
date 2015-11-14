@@ -50,7 +50,7 @@ def paper_submit(request):
 @login_required
 def submission_index(request):
     c = {
-        "papers": request.user.papers.all(),
+        "papers": request.user.paper_set.all(),
     }
     return render(request, "peer/paper_index.html", c)
 
