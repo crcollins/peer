@@ -31,6 +31,8 @@ class Paper(models.Model):
 
 class Review(models.Model):
     paper = models.ForeignKey(Paper, related_name="reviews")
+    editor = models.BooleanField(default=False)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="reviews")
     comments = models.TextField(max_length=1024*1024)
     decision = models.IntegerField(choices=DECISION_CHOICES)
+
