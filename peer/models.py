@@ -27,3 +27,10 @@ class Paper(models.Model):
     def is_public(self):
         return self.status == ACCEPTED
 
+
+
+class Review(models.Model):
+    paper = models.ForeignKey(Paper)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="reviews")
+    comments = models.TextField(max_length=1024*1024)
+    decision = models.IntegerField(choices=DECISION_CHOICES)
