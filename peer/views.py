@@ -5,16 +5,14 @@ from django.http import Http404
 from models import Paper
 from forms import PaperForm
 
+
 def index(request):
     c = {}
     return render(request, "peer/index.html", c)
 
 
 def paper_index(request):
-    # public papers only
-
     new_papers = Paper.objects.filter(published__isnull=False).order_by('-pk')[:10]
-
     c = {
         "papers": new_papers,
     }
@@ -29,7 +27,6 @@ def paper_detail(request, paper_id):
     else:
         raise Http404("Paper does not exist.")
 
-    
 
 @login_required
 def paper_submit(request):
@@ -51,17 +48,16 @@ def paper_submit(request):
 
 
 @login_required
-def review_submissions(request):
+def submission_index(request):
     c = {
-        "papers": request.user.papers,
+        "papers": request.user.papers.all(),
     }
-    return render(request, "peer/review_submissions.html", c)
+    return render(request, "peer/paper_index.html", c)
 
 
 @login_required
-def review_submission_detail(request, paper_id):
-    c = {
-        "paper": Paper.objects.get(paper_id),
-    }
-    return render(request, "peer/review_submission_detail.html", c)
+def submission_detail(request, paper_id):
+    paper = get_object_or_404(Paper, pk=paper_id, author=request.user)
+    c = {"paper": paper}
+    return render(request, "peer/paper_detail.html", c)
 

@@ -34,6 +34,9 @@
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'paper_submit' %}">Submit</a></li>
             </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'submission_index' %}">Submissions</a></li>
+            </ul>
 
             <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
