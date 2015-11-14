@@ -25,6 +25,7 @@ class Paper(models.Model):
     submitted = models.DateTimeField(auto_now=True)
     published = models.DateTimeField(auto_now=False, null=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
+    hash_value = models.CharField(max_length=64, null=True)
 
     def is_public(self):
         return self.status == ACCEPTED
