@@ -13,7 +13,7 @@
         <p>
         {% if paper.is_reviewed %}
         {% for review in paper.reviews.all %}
-            <div class="decision">{{ review.decision }}</div>
+            <div class="decision">Decision: {{ review.get_decision_display }}</div>
             <div class="comments">{{ review.comments }}</div>
             <p>
         {% endfor %}
