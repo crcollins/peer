@@ -49,6 +49,9 @@ class Revision(models.Model):
     submitted = models.DateTimeField(auto_now=True)
     paper = models.ForeignKey(Paper, related_name="revisions")
 
+    class Meta:
+        get_latest_by = "submitted"
+
 
 class Review(models.Model):
     paper = models.ForeignKey(Paper, related_name="reviews")
@@ -57,3 +60,6 @@ class Review(models.Model):
     comments = models.TextField(max_length=1024*1024)
     decision = models.IntegerField(choices=DECISION_CHOICES)
     submitted = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        get_latest_by = "submitted"
