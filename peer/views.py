@@ -21,7 +21,7 @@ def paper_index(request):
 
 def paper_detail(request, paper_id):
     paper = get_object_or_404(Paper, pk=paper_id)
-    if paper and paper.is_public():
+    if request.user == paper.author or paper.is_public():
         c = {"paper": paper}
         return render(request, "peer/paper_detail.html", c)
     else:
