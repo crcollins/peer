@@ -33,11 +33,21 @@ class Paper(models.Model):
     def is_reviewed(self):
         return self.status != PENDING
 
+    def needs_revision(self):
+        return self.status == REVISION
+
     def update_status(self, status):
         self.status = status
         if self.status == ACCEPTED:
             self.published = datetime.datetime.now()
         self.save()
+
+
+class Revision(models.Model):
+    comments = models.TextField(max_length=1024*1024)
+    pdf_file = models.FileField(upload_to="papers")
+    submitted = models.DateTimeField(auto_now=True)
+    paper = models.ForeignKey(Paper, related_name="revisions")
 
 
 class Review(models.Model):

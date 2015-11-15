@@ -9,7 +9,15 @@
         <div class="author">{{ paper.author }}</div>
         <div class="abstract">{{ paper.abstract }}</div>
         {% if request.user == paper.author %}
-        <div class="status">{{ paper.get_status_display }}</div>
+        <div class="status">
+            {% if paper.needs_revision %}
+                <a href="{% url 'revision_submit' paper.pk %}">
+                    {{ paper.get_status_display }}
+                </a>
+            {% else %}
+            {{ paper.get_status_display }}
+            {% endif %}
+        </div>
         <p>
         {% if paper.is_reviewed %}
         {% for review in paper.reviews.all %}

@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
-from models import Paper
-from forms import PaperForm
+from models import Paper, Revision
+from forms import PaperForm, RevisionForm
 
 
 def index(request):
@@ -54,3 +54,21 @@ def submission_index(request):
     }
     return render(request, "peer/paper_index.html", c)
 
+
+def revision_submit(request, paper_id):
+    paper = get_object_or_404(Paper, pk=paper_id, author=request.user)
+    if request.method == "POST":
+        revision = Revision(paper=paper)
+        form = RevisionForm(request.POST, request.FILES, instance=revision)
+
+        if form.is_valid():
+            form.save()
+            # log
+            return redirect(submission_index)
+    else:
+        form = RevisionForm()
+
+    c = {
+        "form": form,
+    }
+    return render(request, "peer/submit_revision.html", c)
