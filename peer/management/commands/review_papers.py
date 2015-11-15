@@ -13,7 +13,7 @@ def hash_file(f, blocksize=65536):
     while len(buf) > 0:
         hasher.update(buf)
         buf = f.read(blocksize)
-    return int(hasher.hexdigest(), 16)
+    return hasher.hexdigest()
 
 
 def reviewer_classifier(paper):
@@ -42,7 +42,11 @@ class Command(BaseCommand):
         USER = User.objects.all()[0]
         for paper in Paper.objects.filter(status=PENDING):
             print paper
-            random.seed(hash_file(paper.pdf_file))
+            if not paper.hash_value:
+                paper.hash_value = hash_file(paper.pdf_file)
+                paper.save()
+
+            random.seed(int(paper.hash_value, 16))
             for x in xrange(random.randint(2,5)):
                 print "rev", x,
                 decision = reviewer_classifier(paper)
