@@ -54,10 +54,3 @@ def submission_index(request):
     }
     return render(request, "peer/paper_index.html", c)
 
-
-@login_required
-def submission_detail(request, paper_id):
-    paper = get_object_or_404(Paper, pk=paper_id, author=request.user)
-    c = {"paper": paper}
-    return render(request, "peer/paper_detail.html", c)
-
