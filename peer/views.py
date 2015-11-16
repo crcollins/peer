@@ -32,17 +32,29 @@ def paper_detail(request, paper_id):
 def paper_submit(request):
     if request.method == "POST":
         paper = Paper(author=request.user)
-        form = PaperForm(request.POST, request.FILES, instance=paper)
+        paper_form = PaperForm(request.POST, instance=paper)
+        rev = Revision(paper=paper)
+        rev_form = RevisionForm(request.POST, request.FILES, instance=rev)
+        
+        # prevent short circuit
+        paper_valid = paper_form.is_valid()
+        rev_valid = rev_form.is_valid()
+        
 
-        if form.is_valid():
-            form.save()
+        if paper_valid and rev_valid:
+            new_paper = paper_form.save()
+            rev = Revision(paper=new_paper)
+            rev_form = RevisionForm(request.POST, request.FILES, instance=rev)
+            rev_form.save()
             # log
             return redirect(submission_index)
     else:
-        form = PaperForm()
+        paper_form = PaperForm()
+        rev_form = RevisionForm()
 
     c = {
-        "form": form,
+        "paper_form": paper_form,
+        "rev_form": rev_form,
     }
     return render(request, "peer/submit_paper.html", c)
 

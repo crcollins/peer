@@ -42,11 +42,12 @@ class Command(BaseCommand):
         USER = User.objects.all()[0]
         for paper in Paper.objects.filter(status=PENDING):
             print paper
-            if not paper.hash_value:
-                paper.hash_value = hash_file(paper.pdf_file)
-                paper.save()
+            rev = paper.revisions.latest()
+            if not rev.hash_value:
+                rev.hash_value = hash_file(rev.pdf_file)
+                rev.save()
 
-            random.seed(int(paper.hash_value, 16))
+            random.seed(int(rev.hash_value, 16))
             for x in xrange(random.randint(2,5)):
                 print "rev", x,
                 decision = reviewer_classifier(paper)

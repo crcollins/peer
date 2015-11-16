@@ -21,11 +21,9 @@ class Paper(models.Model):
     title = models.CharField(max_length=255)
     abstract = models.TextField(max_length=1024)
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
-    pdf_file = models.FileField(upload_to="papers")
     submitted = models.DateTimeField(auto_now=True)
     published = models.DateTimeField(auto_now=False, null=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
-    hash_value = models.CharField(max_length=64, null=True)
 
     def is_public(self):
         return self.status == ACCEPTED
@@ -41,6 +39,9 @@ class Paper(models.Model):
         if self.status == ACCEPTED:
             self.published = datetime.datetime.now()
         self.save()
+
+    def get_current_url(self):
+        return self.revisions.latest().pdf_file.url
 
 
 class Revision(models.Model):

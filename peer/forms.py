@@ -6,7 +6,7 @@ class PaperForm(forms.ModelForm):
 
     class Meta:
         model = Paper
-        fields = ("title", "abstract", "pdf_file")
+        fields = ("title", "abstract")
 
 
 class RevisionForm(forms.ModelForm):

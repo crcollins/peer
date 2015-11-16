@@ -27,7 +27,7 @@
         {% endfor %}
         {% endif %}
         {% endif %}
-        <div class="detail"><a href="{{ paper.pdf_file.url }}">PDF</a></div>
+        <div class="detail"><a href="{{ paper.get_current_url }}">PDF</a></div>
         <div class="cite">CITE</div>
     </div>
 </div>
