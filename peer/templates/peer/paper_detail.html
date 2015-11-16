@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="title"><a href="{% url 'paper_detail' paper.id %}">{{ paper.title }}</a></div>
+        <div class="title">{{ paper.title }}</div>
         <div class="author">{{ paper.author }}</div>
         <div class="abstract">{{ paper.abstract }}</div>
         {% if request.user == paper.author %}
