@@ -29,6 +29,14 @@
         {% endif %}
         <div class="detail"><a href="{{ paper.get_current_url }}">PDF</a></div>
         <div class="cite">CITE</div>
+        {% if request.user == paper.author %}
+            <div class "revisions">
+                <div>Revisions:</div>
+                {% for revision in paper.revisions.all %}
+                    <div><a href="{{ revision.pdf_file.url }}">Revision {{ forloop.counter0 }}</a></div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
