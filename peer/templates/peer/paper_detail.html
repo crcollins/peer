@@ -9,23 +9,23 @@
         <div class="author">{{ paper.author }}</div>
         <div class="abstract">{{ paper.abstract }}</div>
         {% if request.user == paper.author %}
-        <div class="status">
+            <div class="status">
             {% if paper.needs_revision %}
                 <a href="{% url 'revision_submit' paper.pk %}">
                     {{ paper.get_status_display }}
                 </a>
             {% else %}
-            {{ paper.get_status_display }}
+                {{ paper.get_status_display }}
             {% endif %}
-        </div>
-        <p>
-        {% if paper.is_reviewed %}
-        {% for review in paper.reviews.all %}
-            <div class="decision">Decision: {{ review.get_decision_display }}</div>
-            <div class="comments">{{ review.comments }}</div>
+            </div>
             <p>
-        {% endfor %}
-        {% endif %}
+            {% if paper.is_reviewed %}
+                {% for review in paper.reviews.all %}
+                    <div class="decision">Decision: {{ review.get_decision_display }}</div>
+                    <div class="comments">{{ review.comments }}</div>
+                    <p>
+                {% endfor %}
+            {% endif %}
         {% endif %}
         <div class="detail"><a href="{{ paper.get_current_url }}">PDF</a></div>
         <div class="cite">CITE</div>
