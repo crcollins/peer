@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
-from models import Paper, Revision
+from models import Paper, Revision, PENDING
 from forms import PaperForm, RevisionForm
 
 
@@ -75,6 +75,7 @@ def revision_submit(request, paper_id):
 
         if form.is_valid():
             form.save()
+            paper.update_status(PENDING)
             # log
             return redirect(submission_index)
     else:
