@@ -39,8 +39,14 @@
                 </div>
             </div>    
         {% endif %}
-        <div class="detail"><a href="{{ paper.get_current_url }}">PDF</a></div>
-        <div class="cite">CITE</div>
+        <div class="row">
+            <div class="col-xs-6">
+                <a class="btn btn-lg btn-primary btn-block" href="{{ paper.get_current_url }}">Get PDF</a>
+            </div>
+            <div class="col-xs-6">
+                <a class="btn btn-lg btn-primary btn-block" href="">Cite</a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
