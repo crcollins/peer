@@ -12,7 +12,7 @@
             <div class="status">
             {% if paper.needs_revision %}
                 <a href="{% url 'revision_submit' paper.pk %}">
-                    {{ paper.get_status_display }}
+                    Click to Submit a Revision
                 </a>
             {% else %}
                 {{ paper.get_status_display }}
