@@ -39,7 +39,8 @@ class Command(BaseCommand):
     help = 'Add reviews for all the current pending papers'
 
     def handle(self, *args, **kwargs):
-        USER = User.objects.all()[0]
+        reviewer = User.objects.get(username="reviewer")
+        editor = User.objects.get(username="editor")
         for paper in Paper.objects.filter(status=PENDING):
             print paper
             rev = paper.revisions.latest()
@@ -55,7 +56,7 @@ class Command(BaseCommand):
                 print decision
                 Review(
                     paper=paper,
-                    author=USER,
+                    author=reviewer,
                     comments=comments,
                     decision=decision,
                 ).save()
@@ -67,7 +68,7 @@ class Command(BaseCommand):
             print decision
             Review(
                 paper=paper,
-                author=USER,
+                author=editor,
                 editor=True,
                 comments=comments,
                 decision=decision,
