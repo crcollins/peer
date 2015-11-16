@@ -20,11 +20,16 @@
             </div>
             <p>
             {% if paper.is_reviewed %}
+                <div class="list-group">
+                    <a class="list-group-item collapse-data-btn" data-toggle="collapse" href="#reviews">
+                        Click to see reviews<b class="caret"></b></a>
+                    <dl id="reviews" class="dl-horizontal collapse">
                 {% for review in paper.reviews.all %}
-                    <div class="decision">Decision: {{ review.get_decision_display }}</div>
-                    <div class="comments">{{ review.comments }}</div>
-                    <p>
+                      <dt>{{ review.get_decision_display }}</dt>
+                      <dd>{{ review.comments }}</dd>
                 {% endfor %}
+                    </dl>
+                </div>
             {% endif %}
         {% endif %}
         <div class="detail"><a href="{{ paper.get_current_url }}">PDF</a></div>
