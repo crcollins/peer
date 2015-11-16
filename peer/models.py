@@ -48,6 +48,7 @@ class Revision(models.Model):
     pdf_file = models.FileField(upload_to="papers")
     submitted = models.DateTimeField(auto_now=True)
     paper = models.ForeignKey(Paper, related_name="revisions")
+    hash_value = models.CharField(max_length=64, null=True)
 
     class Meta:
         get_latest_by = "submitted"
