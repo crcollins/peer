@@ -19,8 +19,8 @@
             {% endif %}
             </div>
             <p>
-            {% if paper.is_reviewed %}
-                <div class="list-group">
+            <div class="list-group">
+                {% if paper.is_reviewed %}
                     <a class="list-group-item collapse-data-btn" data-toggle="collapse" href="#reviews">
                         Click to see reviews<b class="caret"></b></a>
                     <dl id="reviews" class="dl-horizontal collapse">
@@ -29,19 +29,18 @@
                       <dd>{{ review.comments }}</dd>
                 {% endfor %}
                     </dl>
-                </div>
-            {% endif %}
-        {% endif %}
-        <div class="detail"><a href="{{ paper.get_current_url }}">PDF</a></div>
-        <div class="cite">CITE</div>
-        {% if request.user == paper.author %}
-            <div class "revisions">
-                <div>Revisions:</div>
+                {% endif %}
+                <a class="list-group-item collapse-data-btn" data-toggle="collapse" href="#revisions">
+                        Click to see revisions<b class="caret"></b></a>
+                <div id="revisions" class="collapse">
                 {% for revision in paper.revisions.all %}
                     <div><a href="{{ revision.pdf_file.url }}">Revision {{ forloop.counter0 }}</a></div>
                 {% endfor %}
-            </div>
+                </div>
+            </div>    
         {% endif %}
+        <div class="detail"><a href="{{ paper.get_current_url }}">PDF</a></div>
+        <div class="cite">CITE</div>
     </div>
 </div>
 {% endblock %}
