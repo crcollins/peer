@@ -1,5 +1,6 @@
 import random
 import hashlib
+import math
 
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
@@ -23,7 +24,10 @@ def reviewer_classifier(paper):
 
 def editor_classifier(paper, reviews):
     average = sum(x.decision for x in reviews) / float(len(reviews))
-    editor = (random.random() - 0.5) / 4.0
+    editor_revs = sum(1 for x in reviews if x.editor)
+    rev_bonus = 2. / (1 + math.exp(-2 * editor_revs)) - 1
+    editor = (random.random() - 0.5) / 4.0 + rev_bonus
+    print editor, average
     return int(round(average + editor))
 
 
