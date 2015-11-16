@@ -53,8 +53,8 @@
         </div>
     </nav>
 
-
-    <div class="container">
+    {% block landing %}{% endblock %}
+    <div class="container main-content">
         {% block header %}
         {% endblock %}
         {% block content %}

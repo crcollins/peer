@@ -20,4 +20,24 @@
 
 .navbar {
     border-radius: 0px;
+    margin: 0px;
+}
+
+.main-content {
+    padding-top: 20px;
+}
+
+.intro-header {
+    padding-top: 50px; 
+    padding-bottom: 200px;
+    text-align: center;
+    color: #f8f8f8;
+    background: url(intro-bg.jpg) no-repeat center center;
+    background-size: cover;
+}
+.intro-header h1 {
+    font-size: 8em;
+}
+.intro-header h3 {
+    font-size: 3em;
 }
