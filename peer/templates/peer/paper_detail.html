@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="title">{{ paper.title }}</div>
-        <div class="author">{{ paper.author }} | Accepted: {{ paper.published }}</div>
+        <div class="author">{{ paper.author }} | {% if paper.is_public %}Accepted: {{ paper.published }}{% else %}Submitted: {{ paper.submitted }}{% endif %}</div>
         <div class="abstract">{{ paper.abstract }}</div>
         {% if request.user == paper.author %}
             <div class="status">
